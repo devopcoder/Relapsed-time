@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Relapse</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #000;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      transition: all 1s ease;
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .question, .followup, .final {
+      font-size: 1.8rem;
+      margin: 20px 0;
+    }
+
+    button {
+      background-color: #444;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #888;
+    }
+
+    video {
+      width: 90%;
+      max-width: 600px;
+      margin-top: 20px;
+      border-radius: 12px;
+    }
+
+    img {
+      max-width: 300px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+
+    .caption {
+      font-size: 1.3rem;
+      color: #ff5e5e;
+      margin-top: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    body.sad {
+      background: #111;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="step1">
+      <div class="question">ML Player ka ba?</div>
+      <button onclick="startRelapse()">Yes</button>
+      <button onclick="startRelapse()">No</button>
+    </div>
+
+    <div id="video1Container" class="hidden">
+      <video id="video1" controls autoplay onended="showFollowUp()">
+        <source src="video1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div id="step2" class="hidden">
+      <div class="followup">Mahal mo ba?</div>
+      <button onclick="playVideo2()">Yes</button>
+      <button onclick="playVideo2()">Hindi</button>
+    </div>
+
+    <div id="video2Container" class="hidden">
+      <video id="video2" controls autoplay onended="showFinal()">
+        <source src="video2.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div id="finalStep" class="hidden">
+      <img src="final-picture.jpg" alt="Relapse Image"/>
+      <div class="caption">Huwag ka nang umasa.</div>
+    </div>
+  </div>
+
+  <script>
+    function startRelapse() {
+      document.body.classList.add('sad');
+      document.getElementById('step1').classList.add('hidden');
+      document.getElementById('video1Container').classList.remove('hidden');
+      document.getElementById('video1').play();
+    }
+
+    function showFollowUp() {
+      document.getElementById('step2').classList.remove('hidden');
+    }
+
+    function playVideo2() {
+      document.getElementById('step2').classList.add('hidden');
+      document.getElementById('video2Container').classList.remove('hidden');
+      document.getElementById('video2').play();
+    }
+
+    function showFinal() {
+      document.getElementById('video2Container').classList.add('hidden');
+      document.getElementById('finalStep').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
