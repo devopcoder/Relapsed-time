@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Relapse</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #000;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      transition: all 1s ease;
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .question, .followup, .final {
+      font-size: 1.8rem;
+      margin: 20px 0;
+    }
+
+    button {
+      background-color: #444;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #888;
+    }
+
+    video {
+      width: 90%;
+      max-width: 600px;
+      margin-top: 20px;
+      border-radius: 12px;
+    }
+
+    img {
+      max-width: 300px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+
+    .caption {
+      font-size: 1.3rem;
+      color: #ff5e5e;
+      margin-top: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    body.sad {
+      background: #111;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="step1">
+      <div class="question">ML Player ka ba?</div>
+      <button onclick="startVideo1('yes')">Yes</button>
+      <button onclick="startVideo1('no')">No</button>
+    </div>
+
+    <div id="video1Container" class="hidden">
+      <video id="video1" controls autoplay onended="afterVideo1()">
+        <source src="video1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div id="step2" class="hidden">
+      <div class="followup">Mahal mo ba?</div>
+      <button onclick="handleLoveAnswer('yes')">Yes</button>
+      <button onclick="handleLoveAnswer('no')">No</button>
+    </div>
+
+    <div id="video2Container" class="hidden">
+      <video id="video2" controls autoplay onended="playVideo4()">
+        <source src="video2.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div id="video3Container" class="hidden">
+      <video id="video3" controls autoplay onended="showFinal()">
+        <source src="video3.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div id="video4Container" class="hidden">
+      <video id="video4" controls autoplay onended="showFinal()">
+        <source src="video4.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div id="finalStep" class="hidden">
+      <img src="final-picture.jpg" alt="Relapse Image"/>
+      <div class="caption">Huwag ka nang umasa.</div>
+    </div>
+  </div>
+
+  <script>
+    let mlAnswer = "";
+
+    function startVideo1(answer) {
+      mlAnswer = answer;
+      document.body.classList.add('sad');
+      document.getElementById('step1').classList.add('hidden');
+      document.getElementById('video1Container').classList.remove('hidden');
+      document.getElementById('video1').play();
+    }
+
+    function afterVideo1() {
+      document.getElementById('video1Container').classList.add('hidden');
+      document.getElementById('step2').classList.remove('hidden');
+    }
+
+    function handleLoveAnswer(answer) {
+      document.getElementById('step2').classList.add('hidden');
+      if (answer === 'yes') {
+        document.getElementById('video2Container').classList.remove('hidden');
+        document.getElementById('video2').play();
+      } else {
+        document.getElementById('video3Container').classList.remove('hidden');
+        document.getElementById('video3').play();
+      }
+    }
+
+    function playVideo4() {
+      document.getElementById('video2Container').classList.add('hidden');
+      document.getElementById('video4Container').classList.remove('hidden');
+      document.getElementById('video4').play();
+    }
+
+    function showFinal() {
+      document.getElementById('video3Container').classList.add('hidden');
+      document.getElementById('video4Container').classList.add('hidden');
+      document.getElementById('finalStep').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
